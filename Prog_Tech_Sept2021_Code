@@ -1,0 +1,26 @@
+template <typename T>
+struct node {
+    T data;
+    node *left, *right;
+};
+
+template <typename T>
+int alternatePaths( node<T> *t) {
+     //Βοηθητικές μεταβλητές
+     int result, count = 0;
+    
+     //Αν το δέντρο είναι κενό τότε μηδέν
+     if(t==nullptr) return 0;
+    
+    //Ελεγχω δεξια , Ελεγχω αριστερά  
+    if((t->data)%2 - (t->right->data)%2 != 0  && (t->data)%2 - (t->left->data)%2 != 0 )) count = 2; 
+    if((t->data)%2 - (t->right->data)%2 != 0 )  count++ ;
+    if((t->data)%2 - (t->left->data)%2 != 0 )  count++;
+    
+    //Ψάχνω αναδρομικά
+    int pleft = alternatePaths(t->left);
+    int pright = alternatePaths(t->right);
+    
+    result = pleft + pright + count;
+    return result;
+}
